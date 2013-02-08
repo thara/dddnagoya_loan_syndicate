@@ -33,6 +33,11 @@ public class Loan {
         }
     }
 
+    /**
+     * 指定されたローン出資分、加算する。
+     * 
+     * @param amount 加算するローン出資
+     */
     public void increase(LoanInvestment amount) {
 
         BigDecimal sum = this.sum.add(amount.getAmount());
@@ -51,6 +56,11 @@ public class Loan {
         }
     }
     
+    /**
+     * 指定されたローン出資分、減算する。
+     * 
+     * @param amount 減算するローン出資
+     */
     public void decrease(LoanInvestment amount) {
         
         BigDecimal sum = this.sum.subtract(amount.getAmount());
@@ -69,7 +79,13 @@ public class Loan {
         }
     }
     
-    public LoanInvestment getLoanInvestment(Company owner) {
+    /**
+     * 指定された出資者のローン出資を返す。
+     * 
+     * @param owner 出資者
+     * @return 指定された出資者のローン出資
+     */
+    LoanInvestment getLoanInvestment(Company owner) {
         for (Entry<Investment, LoanInvestment> entry : loanInvestments.entrySet()) {
             if (entry.getKey().getOwner().equals(owner)) {
                 return entry.getValue();
@@ -79,7 +95,7 @@ public class Loan {
     }
     
     /**
-     * @return the sum
+     * @return 総額
      */
     public BigDecimal getSum() {
         return sum;
