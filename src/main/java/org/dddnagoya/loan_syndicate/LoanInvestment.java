@@ -30,6 +30,9 @@ public class LoanInvestment {
         this.amount = amount;
     }
     
+    /**
+     * @return 金額
+     */
     public BigDecimal getAmount() {
         return this.amount;
     }
