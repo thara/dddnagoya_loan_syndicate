@@ -85,7 +85,7 @@ public class LoanSyndicateTest {
         }
         
         @Test
-        public void decreaseすると各LoanInvestmentが分配率によって現象する() {
+        public void decreaseすると各LoanInvestmentが分配率によって減算する() {
             Loan sut = new Loan(facility);
             
             sut.increase(new LoanInvestment(new BigDecimal("800")));
