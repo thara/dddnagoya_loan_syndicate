@@ -38,9 +38,6 @@ public class LoanSyndicateTest {
         final Company owner_B_15 = new Company(2);
         final Company owner_C_45 = new Company(3);
         
-        /**
-         * 
-         */
         public LoanInvestmentTest() {
             facility = new Facility(limit);
             facility.join(new Investment(owner_A_30, new BigDecimal("30")));
