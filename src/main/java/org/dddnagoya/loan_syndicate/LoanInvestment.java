@@ -30,7 +30,7 @@ public class LoanInvestment {
         this.amount = amount;
     }
     
-    public BigDecimal toDecimal() {
+    public BigDecimal getAmount() {
         return this.amount;
     }
     
@@ -41,7 +41,7 @@ public class LoanInvestment {
      * @return 加算されたローン出資
      */
     public LoanInvestment add(LoanInvestment loanInvestment) {
-        return new LoanInvestment(this.amount.add(loanInvestment.amount));
+        return new LoanInvestment(getAmount().add(loanInvestment.amount));
     }
 
     /**
@@ -51,7 +51,7 @@ public class LoanInvestment {
      * @return 減算されたローン出資
      */
     public LoanInvestment subtract(LoanInvestment loanInvestment) {
-        return new LoanInvestment(this.amount.subtract(loanInvestment.amount));
+        return new LoanInvestment(getAmount().subtract(loanInvestment.amount));
     }
     
     /**
@@ -61,6 +61,6 @@ public class LoanInvestment {
      * @return 指定された割合分にあたるローン出資
      */
     public LoanInvestment divide(BigDecimal percentage) {
-        return new LoanInvestment(this.amount.multiply(percentage.movePointLeft(2)));
+        return new LoanInvestment(getAmount().multiply(percentage.movePointLeft(2)));
     }
 }

@@ -35,7 +35,7 @@ public class Loan {
 
     public void increase(LoanInvestment amount) {
 
-        BigDecimal sum = this.sum.add(amount.toDecimal());
+        BigDecimal sum = this.sum.add(amount.getAmount());
         if (facility.getLimit().compareTo(sum) < 0) {
             throw new IllegalArgumentException("the amount make this sum to be over limit.");
         }
@@ -53,7 +53,7 @@ public class Loan {
     
     public void decrease(LoanInvestment amount) {
         
-        BigDecimal sum = this.sum.subtract(amount.toDecimal());
+        BigDecimal sum = this.sum.subtract(amount.getAmount());
         if (sum.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("the amount make this sum to be less than zero.");
         }

@@ -73,14 +73,14 @@ public class LoanSyndicateTest {
             Loan sut = new Loan(facility);
             
             sut.increase(new LoanInvestment(new BigDecimal("100")));
-            assertThat(sut.getLoanInvestment(owner_A_30).toDecimal(), is(new BigDecimal("30.00")));
-            assertThat(sut.getLoanInvestment(owner_B_15).toDecimal(), is(new BigDecimal("15.00")));
-            assertThat(sut.getLoanInvestment(owner_C_45).toDecimal(), is(new BigDecimal("45.00")));
+            assertThat(sut.getLoanInvestment(owner_A_30).getAmount(), is(new BigDecimal("30.00")));
+            assertThat(sut.getLoanInvestment(owner_B_15).getAmount(), is(new BigDecimal("15.00")));
+            assertThat(sut.getLoanInvestment(owner_C_45).getAmount(), is(new BigDecimal("45.00")));
             
             sut.increase(new LoanInvestment(new BigDecimal("400")));
-            assertThat(sut.getLoanInvestment(owner_A_30).toDecimal(), is(new BigDecimal("150.00")));
-            assertThat(sut.getLoanInvestment(owner_B_15).toDecimal(), is(new BigDecimal("75.00")));
-            assertThat(sut.getLoanInvestment(owner_C_45).toDecimal(), is(new BigDecimal("225.00")));
+            assertThat(sut.getLoanInvestment(owner_A_30).getAmount(), is(new BigDecimal("150.00")));
+            assertThat(sut.getLoanInvestment(owner_B_15).getAmount(), is(new BigDecimal("75.00")));
+            assertThat(sut.getLoanInvestment(owner_C_45).getAmount(), is(new BigDecimal("225.00")));
             assertThat(sut.getSum(), is(new BigDecimal("500")));
         }
         
@@ -91,15 +91,15 @@ public class LoanSyndicateTest {
             sut.increase(new LoanInvestment(new BigDecimal("800")));
             
             sut.decrease(new LoanInvestment(new BigDecimal("300")));
-            assertThat(sut.getLoanInvestment(owner_A_30).toDecimal(), is(new BigDecimal("150.00")));
-            assertThat(sut.getLoanInvestment(owner_B_15).toDecimal(), is(new BigDecimal("75.00")));
-            assertThat(sut.getLoanInvestment(owner_C_45).toDecimal(), is(new BigDecimal("225.00")));
+            assertThat(sut.getLoanInvestment(owner_A_30).getAmount(), is(new BigDecimal("150.00")));
+            assertThat(sut.getLoanInvestment(owner_B_15).getAmount(), is(new BigDecimal("75.00")));
+            assertThat(sut.getLoanInvestment(owner_C_45).getAmount(), is(new BigDecimal("225.00")));
             assertThat(sut.getSum(), is(new BigDecimal("500")));
             
             sut.decrease(new LoanInvestment(new BigDecimal("100")));
-            assertThat(sut.getLoanInvestment(owner_A_30).toDecimal(), is(new BigDecimal("120.00")));
-            assertThat(sut.getLoanInvestment(owner_B_15).toDecimal(), is(new BigDecimal("60.00")));
-            assertThat(sut.getLoanInvestment(owner_C_45).toDecimal(), is(new BigDecimal("180.00")));
+            assertThat(sut.getLoanInvestment(owner_A_30).getAmount(), is(new BigDecimal("120.00")));
+            assertThat(sut.getLoanInvestment(owner_B_15).getAmount(), is(new BigDecimal("60.00")));
+            assertThat(sut.getLoanInvestment(owner_C_45).getAmount(), is(new BigDecimal("180.00")));
             assertThat(sut.getSum(), is(new BigDecimal("400")));
         }
     }
