@@ -5,11 +5,35 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
+ * 総額パイ
  * @author t_hara
  */
 public class AmountPie extends SharePie {
     
-    public AmountPie plus(SharePie otherPie) {
+    public AmountPie() {
+        super();
+    }
+    
+    /**
+     * 指定されたSharePieを元にした、新しいAmoutPieを構築する。
+     * 
+     * @param sharePie 元となるSharePie
+     */
+    public AmountPie(SharePie sharePie) {
+        super();
+        for (Company owner : sharePie.getOwners()) {
+            Share share = sharePie.getShare(owner);
+            putShare(share);
+        }
+    }
+    
+    /**
+     * 指定されたotherPieと、このAmoutPieを加算した新しいAmoutPieを返す。
+     * 
+     * @param otherPie 加算するSharePie
+     * @return 加算した新しいAmoutPie
+     */
+    public AmountPie plus(AmountPie otherPie) {
         
         AmountPie newPie = new AmountPie();
         
@@ -30,7 +54,13 @@ public class AmountPie extends SharePie {
         return newPie;
     }
     
-    public AmountPie minus(SharePie otherPie) {
+    /**
+     * 指定されたotherPieと、このAmoutPieを減算した新しいAmoutPieを返す。
+     * 
+     * @param otherPie 減算するSharePie
+     * @return 減算した新しいAmoutPie
+     */
+    public AmountPie minus(AmountPie otherPie) {
         
         AmountPie newPie = new AmountPie();
         

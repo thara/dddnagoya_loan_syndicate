@@ -3,7 +3,7 @@ package org.dddnagoya.loan_syndicate;
 import java.math.BigDecimal;
 
 /**
- * 
+ * 割合パイ
  * @author t_hara
  */
 public class PercentagePie extends SharePie {

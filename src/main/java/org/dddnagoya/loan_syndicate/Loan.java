@@ -3,19 +3,24 @@ package org.dddnagoya.loan_syndicate;
 import java.math.BigDecimal;
 
 /**
+ * ローン
  * @author t_hara
  */
 public class Loan {
     
+    /** 総額パイ */
     private AmountPie sharePie = new AmountPie();
     
-    /**
-     * @param initialFacility
-     */
     public Loan() {
         super();
     }
     
+    /**
+     * 指定された出資者と額を、このローンに適用する。
+     * 
+     * @param owner 出資者
+     * @param amount 額
+     */
     public void adjustShare(Company owner, BigDecimal amount) {
         Share newShare;
         if (sharePie.hasShare(owner)) {
@@ -27,30 +32,36 @@ public class Loan {
         sharePie.putShare(newShare);
     }
     
-    public void increase(BigDecimal amount) {
-        SharePie propartion = this.sharePie.prorate(amount);
-        this.sharePie = this.sharePie.plus(propartion);
-    }
+//    public void increase(BigDecimal amount) {
+//        SharePie propartion = this.sharePie.prorate(amount);
+//        this.sharePie = this.sharePie.plus(new AmountPie(propartion));
+//    }
+//    
+//    public void decrease(BigDecimal amount) {
+//        SharePie propartion = this.sharePie.prorate(amount);
+//        this.sharePie = this.sharePie.minus(new AmountPie(propartion));
+//    }
     
-    public void decrease(BigDecimal amount) {
-        SharePie propartion = this.sharePie.prorate(amount);
-        this.sharePie = this.sharePie.minus(propartion);
-    }
-    
+    /**
+     * 指定された出資者のローン総額を返す。
+     * 
+     * @param owner 出資者
+     * @return ローン総額
+     */
     public BigDecimal getAmountBy(Company owner) {
         Share share = sharePie.getShare(owner);
         return (share == null) ? BigDecimal.ZERO : share.getValue();
     }
     
     /**
-     * @return the sharePie
+     * @return 総額パイ
      */
     public AmountPie getSharePie() {
         return sharePie;
     }
     
     /**
-     * @return the sum
+     * @return 合計値
      */
     public BigDecimal getAmount() {
         BigDecimal amount = BigDecimal.ZERO;
