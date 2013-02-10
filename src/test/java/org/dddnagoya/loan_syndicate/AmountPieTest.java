@@ -19,7 +19,8 @@ public class AmountPieTest {
     static final Company owner_A = new Company(1);
     static final Company owner_B = new Company(2);
     static final Company owner_C = new Company(3);
-
+    static final Company owner_D = new Company(4);
+    
     static AmountPie sut;
     
     @BeforeClass
@@ -75,6 +76,20 @@ public class AmountPieTest {
             assertThat("this value must not be change.", result.getShare(owner_B).getValue(), is(new BigDecimal("31.91")));
             assertThat(result.getShare(owner_C).getValue(), is(new BigDecimal("90.48")));
         }
+        
+        @Test
+        public void parameterに存在してcalleeに存在しないShareは結果にそのままの値で含まれる() {
+            AmountPie param = new AmountPie();
+            param.putShare(new Share(owner_A, new BigDecimal("10.01")));
+            param.putShare(new Share(owner_C, new BigDecimal("15.48")));
+            param.putShare(new Share(owner_D, new BigDecimal("10.11")));
+            
+            AmountPie result = sut.plus(param);
+            
+            assertThat(result.getShare(owner_A).getValue(), is(new BigDecimal("108.10")));
+            assertThat(result.getShare(owner_C).getValue(), is(new BigDecimal("90.48")));
+            assertThat(result.getShare(owner_D).getValue(), is(new BigDecimal("10.11")));
+        }
     }
     
     public static class MinusTest {
@@ -122,6 +137,20 @@ public class AmountPieTest {
             assertThat("this value must not be change.", result.getShare(owner_A).getValue(), is(new BigDecimal("98.09")));
             assertThat(result.getShare(owner_B).getValue(), is(new BigDecimal("31.00")));
             assertThat(result.getShare(owner_C).getValue(), is(new BigDecimal("3.86")));
+        }
+        
+        @Test
+        public void parameterに存在してcalleeに存在しないShareは結果に負の値で含まれる() {
+            AmountPie param = new AmountPie();
+            param.putShare(new Share(owner_B, new BigDecimal("00.91")));
+            param.putShare(new Share(owner_C, new BigDecimal("71.14")));
+            param.putShare(new Share(owner_D, new BigDecimal("10.11")));
+            
+            AmountPie result = sut.minus(param);
+            
+            assertThat(result.getShare(owner_B).getValue(), is(new BigDecimal("31.00")));
+            assertThat(result.getShare(owner_C).getValue(), is(new BigDecimal("3.86")));
+            assertThat(result.getShare(owner_D).getValue(), is(new BigDecimal("-10.11")));
         }
     }
 }

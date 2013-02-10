@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 
 /**
@@ -44,6 +45,10 @@ public class SharePie {
         Share toShare = shares.get(to);
         shares.put(from, fromShare.subtractValue(value));
         shares.put(to, toShare.addValue(value));
+    }
+    
+    public Set<Company> getOwners() {
+        return shares.keySet();
     }
     
     public Share getShare(Company owner) {
