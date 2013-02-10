@@ -21,10 +21,12 @@ public class SharePie {
         shares.put(share.getOwner(), share);
     }
     
-    public void prorate(BigDecimal value) {
+    public SharePie prorate(BigDecimal value) {
+        SharePie newPie = new SharePie();
         for (Share share : shares.values()) {
-            addShare(share.addValue(value));
+            newPie.addShare(share.addValue(value));
         }
+        return newPie;
     }
     
     void transfer(Company from, Company to, BigDecimal value) {
