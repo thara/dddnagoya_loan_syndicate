@@ -5,7 +5,7 @@ package org.dddnagoya.loan_syndicate;
  */
 public class AmountPie extends SharePie {
     
-    public AmountPie plus(AmountPie otherPie) {
+    public AmountPie plus(SharePie otherPie) {
         
         AmountPie newPie = new AmountPie();
         for (Share myShare : shares.values()) {
@@ -21,7 +21,7 @@ public class AmountPie extends SharePie {
         return newPie;
     }
     
-    public AmountPie minus(AmountPie otherPie) {
+    public AmountPie minus(SharePie otherPie) {
         
         AmountPie newPie = new AmountPie();
         for (Share myShare : shares.values()) {
