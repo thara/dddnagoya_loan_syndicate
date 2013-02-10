@@ -25,7 +25,7 @@ public class SharePie {
         this.prorationContext = prorationContext;
     }
 
-    public void addShare(Share share) {
+    public void putShare(Share share) {
         shares.put(share.getOwner(), share);
     }
     
@@ -34,11 +34,11 @@ public class SharePie {
         SharePie newPie = new SharePie();
         for (Share share : shares.values()) {
             BigDecimal prorated = value.multiply(share.getValue()).divide(sum, prorationContext);
-            newPie.addShare(new Share(share.getOwner(), prorated));
+            newPie.putShare(new Share(share.getOwner(), prorated));
         }
         return newPie;
     }
-    
+
     void transfer(Company from, Company to, BigDecimal value) {
         Share fromShare = shares.get(from);
         Share toShare = shares.get(to);

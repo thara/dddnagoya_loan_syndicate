@@ -25,18 +25,18 @@ public class AmountPieTest {
     @BeforeClass
     public static void init() {
         sut = new AmountPie();
-        sut.addShare(new Share(owner_A, new BigDecimal("98.09")));
-        sut.addShare(new Share(owner_B, new BigDecimal("31.91")));
-        sut.addShare(new Share(owner_C, new BigDecimal("75.00")));
+        sut.putShare(new Share(owner_A, new BigDecimal("98.09")));
+        sut.putShare(new Share(owner_B, new BigDecimal("31.91")));
+        sut.putShare(new Share(owner_C, new BigDecimal("75.00")));
     }
     
     public static class PlusTest {
         @Test
         public void calleeとparameterの状態を変更しない() {
             AmountPie param = new AmountPie();
-            param.addShare(new Share(owner_A, new BigDecimal("10.01")));
-            param.addShare(new Share(owner_B, new BigDecimal("20.00")));
-            param.addShare(new Share(owner_C, new BigDecimal("15.00")));
+            param.putShare(new Share(owner_A, new BigDecimal("10.01")));
+            param.putShare(new Share(owner_B, new BigDecimal("20.00")));
+            param.putShare(new Share(owner_C, new BigDecimal("15.00")));
             
             sut.plus(param);
             
@@ -52,9 +52,9 @@ public class AmountPieTest {
         @Test
         public void calleeとparameterのshareの値を加算した値を返す() {
             AmountPie param = new AmountPie();
-            param.addShare(new Share(owner_A, new BigDecimal("10.01")));
-            param.addShare(new Share(owner_B, new BigDecimal("59.09")));
-            param.addShare(new Share(owner_C, new BigDecimal("15.48")));
+            param.putShare(new Share(owner_A, new BigDecimal("10.01")));
+            param.putShare(new Share(owner_B, new BigDecimal("59.09")));
+            param.putShare(new Share(owner_C, new BigDecimal("15.48")));
             
             AmountPie result = sut.plus(param);
             
@@ -66,8 +66,8 @@ public class AmountPieTest {
         @Test
         public void parameterに存在しないshareの値には影響を与えない() {
             AmountPie param = new AmountPie();
-            param.addShare(new Share(owner_A, new BigDecimal("10.01")));
-            param.addShare(new Share(owner_C, new BigDecimal("15.48")));
+            param.putShare(new Share(owner_A, new BigDecimal("10.01")));
+            param.putShare(new Share(owner_C, new BigDecimal("15.48")));
             
             AmountPie result = sut.plus(param);
             
@@ -82,9 +82,9 @@ public class AmountPieTest {
         @Test
         public void calleeとparameterの状態を変更しない() {
             AmountPie param = new AmountPie();
-            param.addShare(new Share(owner_A, new BigDecimal("10.01")));
-            param.addShare(new Share(owner_B, new BigDecimal("20.00")));
-            param.addShare(new Share(owner_C, new BigDecimal("15.00")));
+            param.putShare(new Share(owner_A, new BigDecimal("10.01")));
+            param.putShare(new Share(owner_B, new BigDecimal("20.00")));
+            param.putShare(new Share(owner_C, new BigDecimal("15.00")));
             
             sut.minus(param);
             
@@ -100,9 +100,9 @@ public class AmountPieTest {
         @Test
         public void calleeとparameterのshareの値を加算した値を返す() {
             AmountPie param = new AmountPie();
-            param.addShare(new Share(owner_A, new BigDecimal("13.04")));
-            param.addShare(new Share(owner_B, new BigDecimal("00.91")));
-            param.addShare(new Share(owner_C, new BigDecimal("71.14")));
+            param.putShare(new Share(owner_A, new BigDecimal("13.04")));
+            param.putShare(new Share(owner_B, new BigDecimal("00.91")));
+            param.putShare(new Share(owner_C, new BigDecimal("71.14")));
             
             AmountPie result = sut.minus(param);
             
@@ -114,8 +114,8 @@ public class AmountPieTest {
         @Test
         public void parameterに存在しないshareの値には影響を与えない() {
             AmountPie param = new AmountPie();
-            param.addShare(new Share(owner_B, new BigDecimal("00.91")));
-            param.addShare(new Share(owner_C, new BigDecimal("71.14")));
+            param.putShare(new Share(owner_B, new BigDecimal("00.91")));
+            param.putShare(new Share(owner_C, new BigDecimal("71.14")));
             
             AmountPie result = sut.minus(param);
             

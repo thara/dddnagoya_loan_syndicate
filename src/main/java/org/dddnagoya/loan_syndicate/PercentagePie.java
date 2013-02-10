@@ -11,13 +11,13 @@ public class PercentagePie extends SharePie {
     private static BigDecimal fullRate = new BigDecimal("100");
     
     @Override
-    public void addShare(Share share) {
+    public void putShare(Share share) {
         
         BigDecimal sum = getSumOfShares();
         if (sum.add(share.getValue()).compareTo(fullRate) > 0) {
             throw new IllegalArgumentException();
         }
         
-        super.addShare(share);
+        super.putShare(share);
     }
 }

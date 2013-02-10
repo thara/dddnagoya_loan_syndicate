@@ -4,7 +4,7 @@ package org.dddnagoya.loan_syndicate;
  * @author t_hara
  */
 public class AmountPie extends SharePie {
-
+    
     public AmountPie plus(AmountPie otherPie) {
         
         AmountPie newPie = new AmountPie();
@@ -13,9 +13,9 @@ public class AmountPie extends SharePie {
             if (otherPie.hasShare(owner)) {
                 Share otherShare = otherPie.getShare(owner);
                 // add
-                newPie.addShare(myShare.addValue(otherShare.getValue()));
+                newPie.putShare(myShare.addValue(otherShare.getValue()));
             } else {
-                newPie.addShare(myShare);
+                newPie.putShare(myShare);
             }
         }
         return newPie;
@@ -29,9 +29,9 @@ public class AmountPie extends SharePie {
             if (otherPie.hasShare(owner)) {
                 Share otherShare = otherPie.getShare(owner);
                 // subtract 
-                newPie.addShare(myShare.subtractValue(otherShare.getValue()));
+                newPie.putShare(myShare.subtractValue(otherShare.getValue()));
             } else {
-                newPie.addShare(myShare);
+                newPie.putShare(myShare);
             }
         }
         return newPie;

@@ -29,9 +29,9 @@ public class SharePieTest {
         public void 渡された値をShareの割合に分割したSharePieを返す() {
             SharePie sut = new SharePie();
               
-            sut.addShare(new Share(owner_A, new BigDecimal("10")));
-            sut.addShare(new Share(owner_B, new BigDecimal("20")));
-            sut.addShare(new Share(owner_C, new BigDecimal("30")));
+            sut.putShare(new Share(owner_A, new BigDecimal("10")));
+            sut.putShare(new Share(owner_B, new BigDecimal("20")));
+            sut.putShare(new Share(owner_C, new BigDecimal("30")));
               
             SharePie result = sut.prorate(new BigDecimal("120"));
           
@@ -44,9 +44,9 @@ public class SharePieTest {
         public void calleeの状態は変更しない() {
             SharePie sut = new SharePie();
             
-            sut.addShare(new Share(owner_A, new BigDecimal("10")));
-            sut.addShare(new Share(owner_B, new BigDecimal("20")));
-            sut.addShare(new Share(owner_C, new BigDecimal("30")));
+            sut.putShare(new Share(owner_A, new BigDecimal("10")));
+            sut.putShare(new Share(owner_B, new BigDecimal("20")));
+            sut.putShare(new Share(owner_C, new BigDecimal("30")));
             
             sut.prorate(new BigDecimal("-3.2"));
             
@@ -65,9 +65,9 @@ public class SharePieTest {
         public void transferによってCompany間のShareのvalueを移行できる() {
             SharePie sut = new SharePie();
             
-            sut.addShare(new Share(owner_A, new BigDecimal("10")));
-            sut.addShare(new Share(owner_B, new BigDecimal("20")));
-            sut.addShare(new Share(owner_C, new BigDecimal("30")));
+            sut.putShare(new Share(owner_A, new BigDecimal("10")));
+            sut.putShare(new Share(owner_B, new BigDecimal("20")));
+            sut.putShare(new Share(owner_C, new BigDecimal("30")));
             
             sut.transfer(owner_A, owner_B, new BigDecimal("6"));
             

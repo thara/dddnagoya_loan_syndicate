@@ -21,9 +21,9 @@ public class PercentagePieTest {
     public void setUp() {
         sut = new PercentagePie();
         
-        sut.addShare(new Share(owner_A, new BigDecimal("50")));
-        sut.addShare(new Share(owner_B, new BigDecimal("20")));
-        sut.addShare(new Share(owner_C, new BigDecimal("30")));
+        sut.putShare(new Share(owner_A, new BigDecimal("50")));
+        sut.putShare(new Share(owner_B, new BigDecimal("20")));
+        sut.putShare(new Share(owner_C, new BigDecimal("30")));
         
         assert sut.getSumOfShares().equals(new BigDecimal("100")) : "100以下ならOK";
     }
@@ -31,6 +31,6 @@ public class PercentagePieTest {
     @Test(expected = IllegalArgumentException.class)
     public void addShareを呼んだ時に合計が100を超えた場合に例外を発生する() {
         
-        sut.addShare(new Share(owner_D, new BigDecimal("1")));
+        sut.putShare(new Share(owner_D, new BigDecimal("1")));
     }
 }
