@@ -1,6 +1,7 @@
 package org.dddnagoya.loan_syndicate;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,18 +14,27 @@ public class SharePie {
     
     protected final Map<Company, Share> shares = new HashMap<>();
     
+    private MathContext prorationContext = MathContext.DECIMAL128;
+    
     public SharePie() {
         super();
     }
     
+    public SharePie(MathContext prorationContext) {
+        super();
+        this.prorationContext = prorationContext;
+    }
+
     public void addShare(Share share) {
         shares.put(share.getOwner(), share);
     }
     
     public SharePie prorate(BigDecimal value) {
+        BigDecimal sum = getSumOfShares();
         SharePie newPie = new SharePie();
         for (Share share : shares.values()) {
-            newPie.addShare(share.addValue(value));
+            BigDecimal prorated = value.multiply(share.getValue()).divide(sum, prorationContext);
+            newPie.addShare(new Share(share.getOwner(), prorated));
         }
         return newPie;
     }
@@ -42,5 +52,16 @@ public class SharePie {
     
     public boolean hasShare(Company owner) {
         return shares.containsKey(owner);
+    }
+
+    /**
+     * @return
+     */
+    protected BigDecimal getSumOfShares() {
+        BigDecimal sum = BigDecimal.ZERO;
+        for (Share share : shares.values()) {
+            sum = sum.add(share.getValue());
+        }
+        return sum;
     }
 }
