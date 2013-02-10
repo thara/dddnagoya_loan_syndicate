@@ -44,4 +44,12 @@ public class Share {
     public Share subtractValue(BigDecimal value) {
         return new Share(this.owner, this.value.subtract(value));
     }
+    
+    /* (non-Javadoc)
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Share[" + owner + ":" + value.toPlainString() + "]";
+    }
 }
