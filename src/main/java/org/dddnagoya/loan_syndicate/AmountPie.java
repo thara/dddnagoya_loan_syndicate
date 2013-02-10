@@ -21,8 +21,8 @@ public class AmountPie extends SharePie {
             Share myShare = getShare(owner);
             Share otherShare = otherPie.getShare(owner);
             
-            BigDecimal myAmount = myShare == null ? BigDecimal.ZERO : myShare.getValue();
-            BigDecimal otherAmount = otherShare == null ? BigDecimal.ZERO : otherShare.getValue();
+            BigDecimal myAmount = (myShare == null) ? BigDecimal.ZERO : myShare.getValue();
+            BigDecimal otherAmount = (otherShare == null) ? BigDecimal.ZERO : otherShare.getValue();
             
             newPie.putShare(new Share(owner, myAmount.add(otherAmount)));
         }
@@ -42,8 +42,8 @@ public class AmountPie extends SharePie {
             Share myShare = getShare(owner);
             Share otherShare = otherPie.getShare(owner);
             
-            BigDecimal myAmount = myShare == null ? BigDecimal.ZERO : myShare.getValue();
-            BigDecimal otherAmount = otherShare == null ? BigDecimal.ZERO : otherShare.getValue();
+            BigDecimal myAmount = (myShare == null) ? BigDecimal.ZERO : myShare.getValue();
+            BigDecimal otherAmount = (otherShare == null) ? BigDecimal.ZERO : otherShare.getValue();
             
             newPie.putShare(new Share(owner, myAmount.subtract(otherAmount)));
         }
