@@ -69,21 +69,21 @@ public class SharePieTest {
             sut.putShare(new Share(owner_B, new BigDecimal("20")));
             sut.putShare(new Share(owner_C, new BigDecimal("30")));
             
-            sut.transfer(owner_A, owner_B, new BigDecimal("6"));
+            SharePie result = sut.transfer(owner_A, owner_B, new BigDecimal("6"));
             
-            assertThat(sut.getShare(owner_A).getValue(), is(new BigDecimal("4")));
-            assertThat(sut.getShare(owner_B).getValue(), is(new BigDecimal("26")));
+            assertThat(result.getShare(owner_A).getValue(), is(new BigDecimal("4")));
+            assertThat(result.getShare(owner_B).getValue(), is(new BigDecimal("26")));
             
             assertThat("must not be change owner_C's value",
-                    sut.getShare(owner_C).getValue(), is(new BigDecimal("30")));
+                    result.getShare(owner_C).getValue(), is(new BigDecimal("30")));
             
-            sut.transfer(owner_A, owner_C, new BigDecimal("2"));
+            result = result.transfer(owner_A, owner_C, new BigDecimal("2"));
             
-            assertThat(sut.getShare(owner_A).getValue(), is(new BigDecimal("2")));
-            assertThat(sut.getShare(owner_C).getValue(), is(new BigDecimal("32")));
+            assertThat(result.getShare(owner_A).getValue(), is(new BigDecimal("2")));
+            assertThat(result.getShare(owner_C).getValue(), is(new BigDecimal("32")));
             
             assertThat("must not be change owner_B's value",
-                    sut.getShare(owner_C).getValue(), is(new BigDecimal("32")));
+                    result.getShare(owner_C).getValue(), is(new BigDecimal("32")));
         }
     }
     

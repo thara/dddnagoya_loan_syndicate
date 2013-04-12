@@ -28,7 +28,7 @@ public class LoanSyndicateTest {
         
         sut.draw(new BigDecimal("20"));
         
-        Loan loan = sut.getLoan();
+        Loan loan = sut.getLastLoan();
         
         assertThat(loan.getAmount().setScale(0), is(new BigDecimal("20")));
         assertThat(loan.getAmountBy(owner_A), is(new BigDecimal("4")));
@@ -46,8 +46,7 @@ public class LoanSyndicateTest {
         
         LoanSyndicate sut = new LoanSyndicate(initialFacility);
         
-        sut.draw(new BigDecimal("50"));
-        Loan loan = sut.getLoan();
+        Loan loan = sut.draw(new BigDecimal("50"));
         
         // A:2, B:1.5, C:1.5
         assertThat(loan.getAmountBy(owner_A), is(new BigDecimal("25")));
@@ -55,14 +54,13 @@ public class LoanSyndicateTest {
         assertThat(loan.getAmountBy(owner_C), is(new BigDecimal("10")));
         
         // B社が参加しないため、その分をA社が引き受ける
-        Facility secondFacility = sut.getFacility();
-        secondFacility.transfer(owner_B, owner_A, new BigDecimal("3"));
+        Facility secondFacility = initialFacility.transfer(owner_B, owner_A, new BigDecimal("3"));
         
         assertThat(secondFacility.getPercentageOf(owner_A), is(new BigDecimal("8")));
         assertThat(secondFacility.getPercentageOf(owner_B), is(new BigDecimal("0")));
         assertThat(secondFacility.getPercentageOf(owner_C), is(new BigDecimal("2")));
 
-        sut.draw(new BigDecimal("10"));
+        loan = sut.draw(new BigDecimal("10"), secondFacility);
         
         // 現在のローンの分配率はファシリティの分配率に比例していない
         assertThat(loan.getAmountBy(owner_A), is(new BigDecimal("33")));
@@ -81,20 +79,17 @@ public class LoanSyndicateTest {
         
         LoanSyndicate sut = new LoanSyndicate(initialFacility);
 
-        sut.draw(new BigDecimal("20"));
- 
         // ローンの配分率: A:6, B:4
-        Loan loan = sut.getLoan();
+        Loan loan = sut.draw(new BigDecimal("20"));
         assertThat(loan.getAmountBy(owner_A), is(new BigDecimal("12")));
         assertThat(loan.getAmountBy(owner_C), is(new BigDecimal("8")));
         
-        Facility secondFacility = sut.getFacility();
-        secondFacility.transfer(owner_C, owner_A, new BigDecimal("2"));
+        Facility secondFacility = initialFacility.transfer(owner_C, owner_A, new BigDecimal("2"));
         
         assertThat(secondFacility.getPercentageOf(owner_A), is(new BigDecimal("8")));
         assertThat(secondFacility.getPercentageOf(owner_C), is(new BigDecimal("2")));
         
-        sut.draw(new BigDecimal("30"));
+        loan = sut.draw(new BigDecimal("30"), secondFacility);
         
         // ローンの配分率: A : B = 18 : 7
         assertThat(loan.getAmountBy(owner_A), is(new BigDecimal("36")));
@@ -103,7 +98,7 @@ public class LoanSyndicateTest {
         assertThat(loan.getAmount(), is(new BigDecimal("50")));
         
         // 20 / (18 + 7) = 0.8
-        sut.payPrincipal(new BigDecimal("20"));
+        loan = sut.payPrincipal(new BigDecimal("20"));
         assertThat(loan.getAmount(), is(new BigDecimal("30.0")));
         
         // A社に対する元本支払い: 0.8 * 18 = 14.4

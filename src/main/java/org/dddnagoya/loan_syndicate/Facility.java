@@ -25,6 +25,11 @@ public class Facility {
         this.limit = limit;
     }
     
+    Facility(BigDecimal limit, PercentagePie percentagePie) {
+        this(limit);
+        this.sharePie = percentagePie;
+    }
+    
     /**
      * 指定された出資者を、指定された割合で、このファシリティに参加させる。
      * 
@@ -39,8 +44,10 @@ public class Facility {
     /**
      * @see {@link SharePie#transfer(Company, Company, BigDecimal)}
      */
-    public void transfer(Company from, Company to, BigDecimal percentage) {
-        sharePie.transfer(from, to, percentage);
+    public Facility transfer(Company from, Company to, BigDecimal percentage) {
+        SharePie result = sharePie.transfer(from, to, percentage);
+        PercentagePie percentagePie = new PercentagePie(result);
+        return new Facility(this.limit, percentagePie);
     }
     
     /**

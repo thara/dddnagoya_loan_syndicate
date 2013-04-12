@@ -10,6 +10,17 @@ public class PercentagePie extends SharePie {
 
     private static BigDecimal fullRate = new BigDecimal("100");
     
+    public PercentagePie() {
+        super();
+    }
+    
+    /**
+     * @param sharePie
+     */
+    public PercentagePie(SharePie sharePie) {
+        super(sharePie);
+    }
+
     @Override
     public void putShare(Share share) {
         

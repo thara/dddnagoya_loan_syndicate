@@ -27,6 +27,11 @@ public class SharePie {
         
         this.prorationContext = prorationContext;
     }
+    
+    public SharePie(SharePie sharePie) {
+        this.shares.putAll(sharePie.shares);
+        this.prorationContext = sharePie.prorationContext;
+    }
 
     /**
      * 指定されたShareを、このSharePieに追加する。
@@ -62,7 +67,7 @@ public class SharePie {
      * @param to 移動先
      * @param value 移動する値
      */
-    void transfer(Company from, Company to, BigDecimal value) {
+    public SharePie transfer(Company from, Company to, BigDecimal value) {
         if (from == null) throw new IllegalArgumentException();
         if (to == null) throw new IllegalArgumentException();
         if (value == null) throw new IllegalArgumentException();
@@ -78,8 +83,10 @@ public class SharePie {
             throw new IllegalArgumentException();
         }
         
-        shares.put(from, newFromShare);
-        shares.put(to, toShare.addValue(value));
+        SharePie result = new SharePie(this);
+        result.shares.put(from, newFromShare);
+        result.shares.put(to, toShare.addValue(value));
+        return result;
     }
     
     /**

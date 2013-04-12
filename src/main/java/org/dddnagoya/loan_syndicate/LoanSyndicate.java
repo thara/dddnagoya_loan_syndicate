@@ -9,10 +9,10 @@ import java.math.BigDecimal;
 public class LoanSyndicate {
 
     /** ローン */
-    private final Loan loan = new Loan();
+    private Loan lastLoan = new Loan();
     
     /** ファシリティ */
-    private Facility facility;
+    private final Facility initialFacility;
     
     /**
      * 指定された初期ファシリティのローンシンジケートを構築する。
@@ -20,7 +20,7 @@ public class LoanSyndicate {
      */
     public LoanSyndicate(Facility initialFacility) {
         super();
-        this.facility = initialFacility;
+        this.initialFacility = initialFacility;
     }
     
     /**
@@ -31,12 +31,19 @@ public class LoanSyndicate {
      * 
      * @param amount 引き出す額
      */
-    public void draw(BigDecimal amount) {
+    public Loan draw(BigDecimal amount) {
+        return draw(amount, this.initialFacility);
+    }
+    
+    public Loan draw(BigDecimal amount, Facility facility) {
         SharePie amountsProration = facility.getSharePie().prorate(amount);
+        
+        Loan loan = new Loan(this.lastLoan);
         for (Company owner : amountsProration.getOwners()) {
             Share share = amountsProration.getShare(owner);
             loan.adjustShare(owner, share.getValue());
         }
+        return lastLoan = loan;
     }
     
     /**
@@ -47,12 +54,17 @@ public class LoanSyndicate {
      * 
      * @param principalAmount 元本支払額
      */
-    public void payPrincipal(BigDecimal principalAmount) {
+    public Loan payPrincipal(BigDecimal principalAmount) {
+        
+        Loan loan = new Loan(this.lastLoan);
+        
         SharePie principalsProration = loan.getSharePie().prorate(principalAmount);
         for (Company owner : principalsProration.getOwners()) {
             Share share = principalsProration.getShare(owner);
             loan.adjustShare(owner, share.getValue().negate());
         }
+        
+        return lastLoan = loan;
     }
     
     /**
@@ -65,20 +77,20 @@ public class LoanSyndicate {
      * @return 手数料の配分率
      */
     public SharePie getChargeProration(BigDecimal chargeAmount) {
-        return facility.getSharePie().prorate(chargeAmount);
+        return initialFacility.getSharePie().prorate(chargeAmount);
     }
 
     /**
      * @return the facility
      */
-    public Facility getFacility() {
-        return facility;
+    public Facility getInitialFacility() {
+        return initialFacility;
     }
     
     /**
      * @return the loan
      */
-    public Loan getLoan() {
-        return loan;
+    public Loan getLastLoan() {
+        return lastLoan;
     }
 }

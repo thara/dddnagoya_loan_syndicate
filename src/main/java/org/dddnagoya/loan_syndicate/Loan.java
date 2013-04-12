@@ -15,6 +15,10 @@ public class Loan {
         super();
     }
     
+    public Loan(Loan loan) {
+        this.sharePie = loan.sharePie;
+    }
+    
     /**
      * 指定された出資者と額を、このローンに適用する。
      * 
